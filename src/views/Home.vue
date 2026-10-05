@@ -21,7 +21,6 @@ import api from "../services/api";
 
 export default {
   name: "Home",
-
   data() {
     return {
       message: "",
@@ -29,15 +28,14 @@ export default {
       error: ""
     };
   },
-
   async mounted() {
     try {
+      // This will fire to: current_webview_url/api/messages
       const response = await api.get("/messages");
-
+      
       this.message = response.data.message;
     } catch (error) {
       console.error(error);
-
       this.error = "Unable to fetch message from the backend.";
     } finally {
       this.loading = false;
