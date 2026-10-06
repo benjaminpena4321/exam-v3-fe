@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>MEVN Exam</h1>
+    <h1>MEV Exam</h1>
 
     <p v-if="loading">
       Loading...
