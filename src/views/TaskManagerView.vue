@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>MEVN Exam</h1>
+    <h1>Task Manager</h1>
 
     <p v-if="loading">
       Loading...
@@ -21,7 +21,7 @@ import { ref, onMounted } from 'vue';
 import api from "../services/api";
 
 // 1. Define component name (Optional in Vue 3, as it infers from the filename)
-defineOptions({ name: 'Home'});
+defineOptions({ name: 'Home' });
 
 // 2. Define reactive state using ref()
 const message = ref('');
