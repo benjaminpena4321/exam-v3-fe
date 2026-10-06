@@ -16,32 +16,30 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { ref, onMounted } from 'vue';
 import api from "../services/api";
 
-export default {
-  name: "Home",
+// 1. Define component name (Optional in Vue 3, as it infers from the filename)
+defineOptions({ name: 'Home' });
 
-  data() {
-    return {
-      message: "",
-      loading: true,
-      error: ""
-    };
-  },
+// 2. Define reactive state using ref()
+const message = ref('');
+const loading = ref(true);
+const error = ref('');
 
-  async mounted() {
-    try {
-      const response = await api.get("/messages");
-
-      this.message = response.data.message;
-    } catch (error) {
-      console.error(error);
-
-      this.error = "Unable to fetch message from the backend.";
-    } finally {
-      this.loading = false;
-    }
+// 3. Use the onMounted lifecycle hook
+onMounted(async () => {
+  try {
+    const response = await api.get("/messages");
+    
+    // Remember to use .value when updating refs in <script setup>
+    message.value = response.data.message; 
+  } catch (err) {
+    console.error(err);
+    error.value = "Unable to fetch message from the backend.";
+  } finally {
+    loading.value = false;
   }
-};
+});
 </script>
