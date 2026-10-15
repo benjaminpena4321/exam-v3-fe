@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>MEVN Exam</h1>
+    <h1>MEVN Examdd</h1>
 
     <p v-if="loading">
       Loading...
@@ -12,7 +12,11 @@
 
     <h2 v-else>
       {{ message }}
+      
     </h2>
+    <div>
+      {{ tasks }}
+    </div>
   </div>
 </template>
 
@@ -25,6 +29,7 @@ defineOptions({ name: 'Home' });
 
 // 2. Define reactive state using ref()
 const message = ref('');
+const tasks = ref('');
 const loading = ref(true);
 const error = ref('');
 
@@ -32,6 +37,7 @@ const error = ref('');
 onMounted(async () => {
   try {
     const response = await api.get("/messages");
+    
     
     // Remember to use .value when updating refs in <script setup>
     message.value = response.data.message; 
@@ -41,5 +47,23 @@ onMounted(async () => {
   } finally {
     loading.value = false;
   }
+  try {
+    const response = await api.get("/tasks");
+    
+    
+    // Remember to use .value when updating refs in <script setup>
+    console.log(response.data);
+    tasks.value = response.data.title; 
+  } catch (err) {
+    console.error(err);
+    error.value = "Unable to fetch task from the backend.";
+  } finally {
+    loading.value = false;
+  }
+
+
+  
+  
+ 
 });
 </script>
